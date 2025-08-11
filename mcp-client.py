@@ -43,7 +43,7 @@ async def main():
     headers = {"x-user-id-token": "asdasdasdasdasd"}
     transport = StreamableHttpTransport("http://127.0.0.1:8000/mcp", headers=headers)
     async with Client(transport) as client:
-        result = await client.call_tool("add", {"a": 3, "b": 4, "user_token": b"user-123456789"})
+        result = await client.call_tool("add", {"a": 3, "b": 4})
         print("Result from server:", result)
 
 if __name__ == "__main__":

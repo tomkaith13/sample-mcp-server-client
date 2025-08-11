@@ -4,6 +4,7 @@ class UserAuthMiddleware(Middleware):
     async def on_call_tool(self, context: MiddlewareContext, call_next):
 
         print(f"context: {context}")
+        print("Transport:", getattr(context, "transport", None))
 
         # Middleware stores user info in context state
         context.fastmcp_context.set_state("user_id", "user_123")
@@ -12,18 +13,14 @@ class UserAuthMiddleware(Middleware):
         return await call_next(context)
 
 
-
-
-
-
 mcp = FastMCP("context-demo-server")
 mcp.add_middleware(UserAuthMiddleware())
 
 
 @mcp.tool
-async def add(a: int, b: int, user_token: bytes,  ctx: Context):
+async def add(a: int, b: int,  ctx: Context):
     """Add two numbers, and print out context info if provided."""
-    print(f"Context: {ctx}")
+    
     await ctx.info("Adding two numbers....")
     # mcp.metadata.settings
 
