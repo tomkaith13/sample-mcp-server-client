@@ -25,6 +25,7 @@ async def main():
                 arguments={
                     "a": 10,
                     "b": 5,
+                    "user_token": b"user-123",
                 }
             )
     
