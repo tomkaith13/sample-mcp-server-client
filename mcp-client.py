@@ -37,10 +37,12 @@
 
 import asyncio
 from fastmcp import Client
+from fastmcp.client.transports import StreamableHttpTransport
 
 async def main():
-    # Connect to the server's MCP HTTP endpoint
-    async with Client("http://127.0.0.1:8000/mcp") as client:
+    headers = {"x-user-id-token": "asdasdasdasdasd"}
+    transport = StreamableHttpTransport("http://127.0.0.1:8000/mcp", headers=headers)
+    async with Client(transport) as client:
         result = await client.call_tool("add", {"a": 3, "b": 4, "user_token": b"user-123"})
         print("Result from server:", result)
 
