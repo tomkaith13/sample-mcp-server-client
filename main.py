@@ -27,9 +27,8 @@ async def add(a: int, b: int, user_token: bytes,  ctx: Context):
     await ctx.info("Adding two numbers....")
     # mcp.metadata.settings
 
-    session = ctx.session
 
-    print(session.__dict__)
+    
 
     user_id = ctx.get_state("user_id")
     permissions = ctx.get_state("permissions")
