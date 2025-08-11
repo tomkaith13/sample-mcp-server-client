@@ -1,4 +1,6 @@
 from fastmcp import FastMCP, Context
+# from fastmcp.server.middleware import Middleware, MiddlewareContext
+
 
 
 
@@ -16,4 +18,4 @@ async def add(a: int, b: int, user_token: bytes,  ctx: Context):
     return f"{a} + {b} = {a + b} {ctx.request_context}"
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="streamable-http")

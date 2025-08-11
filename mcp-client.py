@@ -1,35 +1,48 @@
+# import asyncio
+# from mcp import ClientSession, StdioServerParameters
+# from mcp.client.stdio import stdio_client
+# from fastmcp import FastMCP, Context
+
+# async def main():
+#     # Define how to start the server via subprocess
+#     params = StdioServerParameters(
+#         command="python",
+#         args=["main.py"]
+#     )
+
+#     # Spawn the server and connect via stdio
+#     async with stdio_client(params) as (read_stream, write_stream):
+#         async with ClientSession(read_stream, write_stream) as session:
+            
+#             await session.initialize()
+
+#             tools = await session.list_tools()
+#             print("Tools:",tools)
+
+
+#             result = await session.call_tool(
+#                 name="add",
+#                 arguments={
+#                     "a": 10,
+#                     "b": 5,
+#                     "user_token": b"user-123",
+#                 }
+#             )
+    
+#             print("Result:", result)
+
+# if __name__ == "__main__":
+#     asyncio.run(main())
+
+
 import asyncio
-from mcp import ClientSession, StdioServerParameters
-from mcp.client.stdio import stdio_client
-from fastmcp import FastMCP, Context
+from fastmcp import Client
 
 async def main():
-    # Define how to start the server via subprocess
-    params = StdioServerParameters(
-        command="python",
-        args=["main.py"]
-    )
-
-    # Spawn the server and connect via stdio
-    async with stdio_client(params) as (read_stream, write_stream):
-        async with ClientSession(read_stream, write_stream) as session:
-            
-            await session.initialize()
-
-            tools = await session.list_tools()
-            print("Tools:",tools)
-
-
-            result = await session.call_tool(
-                name="add",
-                arguments={
-                    "a": 10,
-                    "b": 5,
-                    "user_token": b"user-123",
-                }
-            )
-    
-            print("Result:", result)
+    # Connect to the server's MCP HTTP endpoint
+    async with Client("http://127.0.0.1:8000/mcp") as client:
+        result = await client.call_tool("add", {"a": 3, "b": 4, "user_token": b"user-123"})
+        print("Result from server:", result)
 
 if __name__ == "__main__":
     asyncio.run(main())
