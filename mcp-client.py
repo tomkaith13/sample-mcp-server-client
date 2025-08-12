@@ -39,18 +39,10 @@ import asyncio
 from fastmcp import Client
 from fastmcp.client.transports import StreamableHttpTransport
 
-# import ssl
-
-# ssl_ctx = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-# ssl_ctx.load_cert_chain(certfile="client.crt", keyfile="client.key")
-# ssl_ctx.load_verify_locations(cafile="ca.crt")
-
-
 async def main():
     headers = {"x-user-id-token": "asdasdasdasdasd"}
     transport = StreamableHttpTransport("http://127.0.0.1:8000/mcp",
                                         headers=headers,
-                                        # ssl=ssl_ctx,
                                         )
     async with Client(transport) as client:
         result = await client.call_tool("add", {"a": 3, "b": 4})
