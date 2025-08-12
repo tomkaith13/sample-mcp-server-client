@@ -3,8 +3,10 @@ from fastmcp.server.middleware import Middleware, MiddlewareContext
 class UserAuthMiddleware(Middleware):
     async def on_call_tool(self, context: MiddlewareContext, call_next):
 
-        print(f"context: {context}")
+        request = context.fastmcp_context.get_http_request()
+        print(f"context: {request.headers}")
         print("Transport:", getattr(context, "transport", None))
+        
 
         # Middleware stores user info in context state
         context.fastmcp_context.set_state("user_id", "user_123")
