@@ -4,7 +4,7 @@ class UserAuthMiddleware(Middleware):
     async def on_call_tool(self, context: MiddlewareContext, call_next):
 
         request = context.fastmcp_context.get_http_request()
-        print(f"context: {request.headers}")
+        print(f"headers: {request.headers}")
         print("Transport:", getattr(context, "transport", None))
         
 
