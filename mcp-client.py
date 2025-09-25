@@ -41,7 +41,7 @@ from fastmcp.client.transports import StreamableHttpTransport
 
 async def main():
     headers = {"x-user-id-token": "asdasdasdasdasd"}
-    transport = StreamableHttpTransport("http://127.0.0.1:8000/mcp",
+    transport = StreamableHttpTransport("http://localhost:8888/mcp",
                                         headers=headers,
                                         )
     async with Client(transport) as client:
