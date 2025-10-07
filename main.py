@@ -6,17 +6,24 @@ class UserAuthMiddleware(Middleware):
         request = context.fastmcp_context.get_http_request()
         
         # print("request::", request.__dict__)
-        print(f"headers: {request.headers}")
+        print(f"[ON_CALL_TOOL] Request headers: {request.headers}")
         session = context.fastmcp_context.session
         # print("Session:", session.__dict__)
 
-        print("Transport:", getattr(context, "transport", None))
-        
+        print(f"[ON_CALL_TOOL] Transport: {getattr(context, 'transport', None)}")
+
 
         # Middleware stores user info in context state
         context.fastmcp_context.set_state("user_id", "user_123")
         context.fastmcp_context.set_state("permissions", ["read", "write"])
         
+        return await call_next(context)
+    
+    async def on_request(self, context: MiddlewareContext, call_next):
+        request = context.fastmcp_context.get_http_request()
+
+        print(f"[ON_REQUEST] Request headers: {request.headers}")
+        print(f"[ON_REQUEST] Request method: {context.method}")
         return await call_next(context)
 
 
