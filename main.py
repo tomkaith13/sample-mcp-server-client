@@ -20,7 +20,7 @@ class UserAuthMiddleware(Middleware):
         return await call_next(context)
 
 
-mcp = FastMCP("context-demo-server")
+mcp = FastMCP("benefits_mcp")
 mcp.add_middleware(UserAuthMiddleware())
 
 
@@ -36,11 +36,14 @@ async def add(a: int, b: int,  ctx: Context):
     return f"{a} + {b} = {a + b} User ID: {user_id} Permissions: {permissions}"
 
 
-@mcp.tool
+@mcp.tool(
+        name="calculate_health_savings_account_contributions",
+        description="Calculate potential health savings account (referred to as HSA) contributions.",
+)
 async def calculate_health_savings_account_contributions(ctx: Context) -> int:
-    """Calculate potential health savings account contributions."""
+    """Calculate potential health savings account (referred to as HSA) contributions."""
 
-    await ctx.info("Calculating health savings account contributions...")
+    await ctx.info("Calculating health savings account (HSA) contributions...")
     return 42
 
 if __name__ == "__main__":
