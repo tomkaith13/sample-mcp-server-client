@@ -25,6 +25,15 @@ class UserAuthMiddleware(Middleware):
         print(f"[ON_REQUEST] Request headers: {request.headers}")
         print(f"[ON_REQUEST] Request method: {context.method}")
         return await call_next(context)
+    
+    async def on_list_tools(self, context, call_next):
+
+        print("[ON_LIST_TOOLS] Listing tools...")
+        print(f"[ON_LIST_TOOLS] Method: {context.method}")
+        
+        request = context.fastmcp_context.get_http_request()
+        print(f"[ON_LIST_TOOLS] header: {request.headers}")
+        return await call_next(context)
 
 
 mcp = FastMCP("benefits_mcp")
