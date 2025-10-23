@@ -8,3 +8,8 @@ dependencies = [
     "fastmcp>=2.11.2",
     "mcp[cli]>=1.12.4",
 ]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+]
